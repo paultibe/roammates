@@ -13,14 +13,11 @@ export default function Home() {
     const checkUserProfile = async () => {
       if (user && !isLoading) {
         try {
-          // Check if user exists in Firebase
           const querySnapshot = await getDoc(doc(db, 'Users', user.sub as string));
           
           if (querySnapshot.exists()) {
-            // User exists, go to dashboard
             router.push('/dashboard');
           } else {
-            // New user, go to create profile
             router.push('/create-profile');
           }
         } catch (error) {
@@ -35,10 +32,13 @@ export default function Home() {
   if (isLoading) return <div>Loading...</div>;
 
   return (
-    <div className="p-4 flex justify-center items-center min-h-screen">
+    <div 
+      className="min-h-screen flex justify-center items-center bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: 'url(/assets/landing-page.png)' }}
+    >
       <a
         href="/api/auth/login"
-        className="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-blue-600"
+        className="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-blue-600 transition-colors"
       >
         Login
       </a>
