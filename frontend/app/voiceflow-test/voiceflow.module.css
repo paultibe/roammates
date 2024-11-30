@@ -1,0 +1,36 @@
+/* Base container styles */
+.vf-chat-container {
+  background: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Message bubbles */
+.vf-user-message {
+  background: #e3f2fd;
+  border-radius: 8px;
+}
+
+.vf-bot-message {
+  background: #ffffff;
+  border-radius: 8px;
+}
+
+/* Input area */
+.vf-input-container {
+  border-top: 1px solid #eee;
+  padding: 12px;
+}
+
+/* Button styles */
+.vf-send-button {
+  background: #007bff;
+  border-radius: 4px;
+  color: white;
+}
+
+/* Header */
+.vf-chat-header {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+}
