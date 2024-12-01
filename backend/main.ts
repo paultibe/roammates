@@ -1,6 +1,7 @@
 // @deno-types="npm:@types/express@4.17.15"
 import express from "npm:express@4.18.2";
 import data from "./data.json" with { type: "json" };
+import "jsr:@std/dotenv/load";
 
 const app = express();
 
@@ -16,9 +17,11 @@ app.get("/api", (_req, res) => {
 
 // google places API
 app.get("/api/places", async (req, res) => {
+
   const city = req.query.city;
-  const API_KEY = Deno.env.get("GOOGLE_PLACES_API_KEY");
-  
+
+  const API_KEY = "AIzaSyBSyARxOEGMLQdB9okwNxIEe1L-2Gz6N7E"; // TODO move LOL
+
   try {
     const response = await fetch(
       `https://maps.googleapis.com/maps/api/place/textsearch/json?query=attractions+in+${city}&key=${API_KEY}`
