@@ -17,7 +17,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     // Load and measure the background image
-    const img = new Image();
+    const img = document.createElement('img');
     img.src = '/assets/dashboard.png';
     img.onload = () => {
       if (containerRef.current) {
