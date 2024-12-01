@@ -1,26 +1,27 @@
 'use client';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import TextBox from '@/components/TextBox';
+import { useRouter } from 'next/navigation';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase/config';
 import { useUser } from '@auth0/nextjs-auth0/client';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import Mate from '@/components/Mate';
 
-interface UserProfile {
-  name: string;
-}
-
-export default function Dashboard() {
+export default function Who() {
   const router = useRouter();
   const { user: auth0User } = useUser();
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [imageHeight, setImageHeight] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [tripDates, setTripDates] = useState({
+    startDate: '',
+    endDate: ''
+  });
 
   useEffect(() => {
     // Load and measure the background image
     const img = document.createElement('img');
-    img.src = '/assets/dashboard.png';
+    img.src = '/assets/who.png';
     img.onload = () => {
       if (containerRef.current) {
         const containerWidth = containerRef.current.offsetWidth;
@@ -33,22 +34,23 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchTripDates = async () => {
       if (!auth0User?.sub) return;
       
       try {
         const docRef = doc(db, 'Users', auth0User.sub);
         const docSnap = await getDoc(docRef);
         
-        if (docSnap.exists()) {
-          setUserProfile(docSnap.data() as UserProfile);
+        if (docSnap.exists() && docSnap.data().Trip) {
+          const { startDate, endDate } = docSnap.data().Trip;
+          setTripDates({ startDate, endDate });
         }
       } catch (error) {
-        console.error('Error fetching user:', error);
+        console.error('Error fetching trip dates:', error);
       }
     };
 
-    fetchUser();
+    fetchTripDates();
   }, [auth0User]);
 
   return (
@@ -62,7 +64,7 @@ export default function Dashboard() {
       <div 
         className="absolute inset-0"
         style={{ 
-          backgroundImage: 'url(/assets/dashboard.png)',
+          backgroundImage: 'url(/assets/who.png)',
           backgroundSize: '100% auto',
           backgroundPosition: 'top center',
           backgroundRepeat: 'no-repeat',
@@ -71,29 +73,32 @@ export default function Dashboard() {
           zIndex: 0
         }}
       >
-        <div className="absolute" style={{ left: '937px', top: '245px', zIndex: 1 }}>
-          <Image
-            src="/assets/plane.png"
-            alt="Plane"
-            width={30}
-            height={30}
-            priority
-          />
-        </div>
-        <button 
-          onClick={() => router.push('/when')}
-          className="absolute hover:opacity-80 transition-opacity"
-          style={{ left: '930px', top: '230px' }}
+        <div 
+          className="absolute text-black text-2xl font-bold"
+          style={{
+            top: '380px',
+            left: '818px',
+            transform: 'translateX(-50%)',
+            width: '400px',
+            textAlign: 'center'
+          }}
         >
-          <Image
-            src="/assets/new-roam.png"
-            alt="New Roam"
-            width={200}
-            height={60}
-            priority
-          />
-        </button>
+          {tripDates.startDate && tripDates.endDate && 
+            `${tripDates.startDate} - ${tripDates.endDate}`
+          }
+        </div>
+
+        <div
+          className="absolute"
+          style={{
+            top: '450px',
+            left: '160px',
+            width: '400px'
+          }}
+        >
+          <Mate />
+        </div>
       </div>
     </div>
   );
-} 
+}
