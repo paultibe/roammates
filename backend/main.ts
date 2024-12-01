@@ -6,7 +6,7 @@ const app = express();
 
 // ------------- ENDPOINTS -------------
 app.get("/", (_req, res) => {
-  res.send("Welcome to the Dinosaur API!");
+  res.send("Welcome!");
 });
 
 // TEST
@@ -14,16 +14,19 @@ app.get("/api", (_req, res) => {
   res.send(data);
 });
 
-app.get("/api/:dinosaur", (req, res) => {
-  if (req?.params?.dinosaur) {
-    const found = data.find((item) =>
-      item.name.toLowerCase() === req.params.dinosaur.toLowerCase()
+// google places API
+app.get("/api/places", async (req, res) => {
+  const city = req.query.city;
+  const API_KEY = Deno.env.get("GOOGLE_PLACES_API_KEY");
+  
+  try {
+    const response = await fetch(
+      `https://maps.googleapis.com/maps/api/place/textsearch/json?query=attractions+in+${city}&key=${API_KEY}`
     );
-    if (found) {
-      res.send(found);
-    } else {
-      res.send("No dinosaurs found.");
-    }
+    const data = await response.json();
+    res.send(data);
+  } catch (error) {
+    res.status(500).send(error.message);
   }
 });
 
