@@ -37,7 +37,7 @@ export default function Home() {
       className="min-h-screen bg-center bg-no-repeat relative"
       style={{ 
         backgroundImage: 'url(/assets/landing-page.png)',
-        backgroundSize: '100% 100%'
+        backgroundSize: 'cover'
       }}
     >
       <div className="absolute bottom-[20%] left-1/2 transform -translate-x-1/2 flex gap-4">
