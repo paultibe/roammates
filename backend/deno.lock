@@ -368,6 +368,9 @@
       "integrity": "sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg=="
     }
   },
+  "remote": {
+    "https://deno.land/std@0.66.0/fs/write_json.ts": "89a6231f51a6759dfff8f1f5534d030c2239c22fc9f3c0b3305d424f4f1d5604"
+  },
   "workspace": {
     "dependencies": [
       "jsr:@std/assert@1"
