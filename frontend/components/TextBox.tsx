@@ -8,6 +8,7 @@ interface TextBoxProps {
   required?: boolean;
   className?: string;
   style?: React.CSSProperties;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 export default function TextBox({
@@ -17,7 +18,8 @@ export default function TextBox({
   type = 'text',
   required = false,
   className = '',
-  style = {}
+  style = {},
+  onKeyDown
 }: TextBoxProps) {
   return (
     <div className={`relative ${className}`} style={style}>
@@ -35,6 +37,7 @@ export default function TextBox({
         className="absolute inset-0 bg-transparent text-black px-4 outline-none"
         placeholder={placeholder}
         required={required}
+        onKeyDown={onKeyDown}
       />
     </div>
   );

@@ -61,6 +61,30 @@ export default function Who() {
         height: '100vh',
       }}
     >
+      <button
+        onClick={() => router.push('/when')}
+        className="absolute bottom-4 left-[100px] z-10 cursor-pointer"
+      >
+        <Image
+          src="/assets/previous.png"
+          alt="Previous"
+          width={150}
+          height={60}
+        />
+      </button>
+
+      <button
+        onClick={() => router.push('/where')}
+        className="absolute bottom-[20px] right-[100px] z-10 cursor-pointer"
+      >
+        <Image
+          src="/assets/next.png"
+          alt="Next"
+          width={122}
+          height={60}
+        />
+      </button>
+
       <div 
         className="absolute inset-0"
         style={{ 
@@ -91,7 +115,7 @@ export default function Who() {
         <div
           className="absolute"
           style={{
-            top: '450px',
+            top: '400px',
             left: '160px',
             width: '400px'
           }}
