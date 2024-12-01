@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase/config';
+import Image from 'next/image';
 
 export default function Home() {
   const { user, isLoading } = useUser();
@@ -33,15 +34,32 @@ export default function Home() {
 
   return (
     <div 
-      className="min-h-screen flex justify-center items-center bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: 'url(/assets/landing-page.png)' }}
+      className="min-h-screen bg-center bg-no-repeat relative"
+      style={{ 
+        backgroundImage: 'url(/assets/landing-page.png)',
+        backgroundSize: '100% 100%'
+      }}
     >
-      <a
-        href="/api/auth/login"
-        className="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-blue-600 transition-colors"
-      >
-        Login
-      </a>
+      <div className="absolute bottom-[20%] left-1/2 transform -translate-x-1/2 flex gap-4">
+        <a href="/api/auth/login" className="hover:opacity-80 transition-opacity">
+          <Image
+            src="/assets/sign-up.png"
+            alt="Sign Up"
+            width={120}
+            height={100}
+            priority
+          />
+        </a>
+        <a href="/api/auth/login" className="hover:opacity-80 transition-opacity">
+          <Image
+            src="/assets/login.png"
+            alt="Login"
+            width={100}
+            height={60}
+            priority
+          />
+        </a>
+      </div>
     </div>
   );
 }
