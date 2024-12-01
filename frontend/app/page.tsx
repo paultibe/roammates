@@ -40,12 +40,12 @@ export default function Home() {
         backgroundSize: 'cover'
       }}
     >
-      <div className="absolute bottom-[20%] left-1/2 transform -translate-x-1/2 flex gap-4">
+      <div className="absolute top-[545px] left-1/2 transform -translate-x-1/2 flex gap-4">
         <a href="/api/auth/login" className="hover:opacity-80 transition-opacity">
           <Image
             src="/assets/sign-up.png"
             alt="Sign Up"
-            width={120}
+            width={135}
             height={100}
             priority
           />
